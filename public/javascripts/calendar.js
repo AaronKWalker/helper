@@ -190,7 +190,7 @@ $(document).ready(function () {
 
 
     $("#gotomessages").on("click", function(){
-      $.get("/calendar/api/" + calendarID, function(response){
+      $.get("/calendar/api/" + $("body").attr("id"), function(response){
         console.log("heading over to messages");
       });
     });

@@ -8,6 +8,9 @@ module.exports = function (sequelize, DataTypes) {
       },
       messageCalendar: {
         type: DataTypes.STRING
+      },
+      messageText: {
+        type: DataTypes.TEXT
       }
   });
 
