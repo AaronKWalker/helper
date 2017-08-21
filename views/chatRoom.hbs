@@ -67,7 +67,7 @@
 function updateTranscript(result) {
   $("#transcript").empty();
   for (var i = 0; i < result.length; i++) {
-    $("#transcript").append("<p>"+result[i].messageText+"</p>");
+    $("#transcript").append("<p>" +  result[i].userName +":   " +  result[i].messageText + "</p>");
   }
 }
 

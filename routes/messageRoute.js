@@ -16,17 +16,29 @@ router.get('/api/:calID', function (req, res, next) {
 });
 
 
-router.post('/message', function (req, res, next){
-  console.log(req.body);
-  var squack = {};
-  squack.messageCalendar = calendarID;
-  squack.userUUID = req.session.uuid;
-  squack.messageText = req.body.messageText;
+router.post('/message', function (req, res, next) {
+  console.log("\n" + req.body);
+  console.log("\n" + req.session.uuid);
 
-  models.messages.create(squack)
-  .then(function(result){
-    res.io.emit('refreshMessages', 'Ahoy, there! New messages availale');
+  models.sequelize.models.User.findOne({
+    where: {
+      uuid: req.session.uuid
+    }
+  })
+  .then(function(data){
+    console.log("\ndata: " + JSON.stringify(data));
+    var squack = {};
+    squack.messageCalendar = calendarID;
+    squack.userUUID = req.session.uuid;
+    squack.messageText = req.body.messageText;
+    squack.userName = data.username;
+
+    models.messages.create(squack)
+    .then(function(result){
+      res.io.emit('refreshMessages', 'Ahoy, there! New messages availale');
+    });
   });
+
 });
 
 
