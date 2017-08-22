@@ -1,19 +1,19 @@
-
 <div class="chatroomContainer">
   <div class="row" id="messageArea">
     <div class="col-md-4">
       <div class="well">
-        <h3>Online Users</h3>
+        <h3>Chat Room</h3>
         <ul class="list-group" id="users"></ul>
       </div>
     </div>
     <div class="col-md-8">
       <div class="chat" id="chat">
+        <div id="transcript" class=""></div>
         <form id="messageForm">
           <div class="form-group">
-            <label>Enter Message</label>
-            <textarea class="form-control" id="message"></textarea><br>
-            <input type="submit" class="btn btn-primary" value="Send Message">
+            <textarea class="form-control" id="message" placeholder="Enter message"></textarea>
+            <input type="submit" class="sendMessage" value="&#xf1d8;">
+            <a href="#" class="backToCalendar"><i class="fa fa-calendar" aria-hidden="true"></i></a>
           </div>
         </form>
       </div>
@@ -21,7 +21,10 @@
   </div>
 </div>
 
-<div id="transcript" class=""></div>
+
+<script type="text/javascript">
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -29,8 +32,6 @@
 
 
 <script type="text/javascript">
-
-
 // function startChat(){
 //
 //   var socket = io.connect();
@@ -63,21 +64,17 @@
 //   socket.on('loggedin', true);
 // }
 //
-
 function updateTranscript(result) {
   $("#transcript").empty();
   for (var i = 0; i < result.length; i++) {
-    $("#transcript").append("<p>" +  result[i].userName +":   " +  result[i].messageText + "</p>");
+    $("#transcript").append("<p><strong>" +  result[i].userName +":</strong>   " +  result[i].messageText + "</p>");
   }
 }
-
 $(document).ready(function() {
-
   $.get('/messages/', function(result){
     console.log(result);
     updateTranscript(result);
   });
-
   var socket = io('//localhost:3000');
   socket.on('socketTest', function (data) {
     console.log(data);
@@ -90,6 +87,7 @@ $(document).ready(function() {
 
     $.post('/messages/message', message, function(result){
       console.log("squack!");
+
     });
     //socket.emit('send message', message.val());
     $("#message").val('');
@@ -102,6 +100,7 @@ $(document).ready(function() {
       updateTranscript(result);
     });
   });
+
   // console.log( "ready!" );
   // startChat();
   // //socket.emit('new user', 'fetch group members');
@@ -113,5 +112,4 @@ $(document).ready(function() {
   //   });
   // });
 });
-
 </script>

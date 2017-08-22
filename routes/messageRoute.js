@@ -15,7 +15,6 @@ router.get('/api/:calID', function (req, res, next) {
     res.render('chatRoom.hbs');
 });
 
-
 router.post('/message', function (req, res, next) {
   console.log("\n" + req.body);
   console.log("\n" + req.session.uuid);
@@ -41,7 +40,6 @@ router.post('/message', function (req, res, next) {
 
 });
 
-
 router.get('/', function(req, res, next){
   models.messages.findAll({
     where: {
@@ -52,7 +50,6 @@ router.get('/', function(req, res, next){
     res.send(result);
   });
 });
-
 
 
 // router.get('/logoff', function(req, res){
@@ -67,15 +64,12 @@ router.get('/', function(req, res, next){
 //   });
 // });
 
-
-
 // io.on('connection', function (socket) {
 //   socket.emit('news', { hello: 'world' });
 //   socket.on('my other event', function (data) {
 //     console.log(data);
 //   });
 // });
-
 
 // io.sockets.on('connection', function(socket){
 //
@@ -159,6 +153,5 @@ router.get('/', function(req, res, next){
 //     });
 //   });
 // });
-
 
 module.exports = router;
